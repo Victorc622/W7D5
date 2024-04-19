@@ -5,7 +5,7 @@
 #  id              :bigint           not null, primary key
 #  username        :string           not null
 #  password_digest :string           not null
-#  sesstion_token  :string           not null
+#  session_token   :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
@@ -21,6 +21,16 @@ class User < ApplicationRecord
 # + B => #before_validation (ensure_session_token)
 # + R => #reset_session_token!
     before_validation :ensure_session_token
+
+    has_many :subs,
+        primary_key: :id,
+        foreign_key: :moderator_id,
+        class_name: :Sub
+
+    has_many posts:
+        through: :subs,
+        source: :posts
+
 
     def self.find_by_credentials(username, password)
         user = User.find_by(username: username)
