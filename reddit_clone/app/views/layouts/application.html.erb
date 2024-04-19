@@ -10,6 +10,28 @@
   </head>
 
   <body>
+      <% if logged_in? %>
+        <nav>
+          <a class='button' href="<%= users_url %>">Take me Home</a>
+          
+          <div class='user-detail'>
+            <p>Logged in as: <%= current_user.username %></p>
+          <form action=<%= session_url %> method='post'>
+            <input
+              type="hidden"
+              name="_method"
+              value="delete">
+            <input
+              type="hidden"
+              name="authenticity_token"
+              value="<%= form_authenticity_token %>">
+            <input 
+              type="submit" value="Sign Out">
+          </form>
+          </div>
+        </nav>
+      <% end %>
+
     <%= yield %>
   </body>
 </html>

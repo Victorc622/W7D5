@@ -40,9 +40,9 @@ class User < ApplicationRecord
         SecureRandom::urlsafe_base64
     end
 
-    validates :users, :username, :sesstion_token, presence: true, uniqueness: true
-    validates :users, :password_digest, presence: true
-    validates :users, :password, length: { minimum: 6 }, allow_nil: true
+    validates :username, :session_token, presence: true, uniqueness: true
+    validates :password_digest, presence: true
+    validates :password, length: { minimum: 6 }, allow_nil: true
 
     attr_reader :password
 
